@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa de Calor de Entregas - EWECAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwtBw_8xT_SelruOj_ba5hGpYtvMH8MYA&libraries=visualization"></script>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #002f6c;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    #map {
+      height: 90%;
+    }
+
+    .footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Mapa de Calor Logístico</h2>
+    <p>Visualización de entregas frecuentes con datos geolocalizados</p>
+  </header>
+
+  <div id="map"></div>
+
+  <div class="footer">
+    EWECAM | Datos de ejemplo para demostración
+  </div>
+
+  <script>
+    const entregas = [
+      {location: new google.maps.LatLng(19.4326, -99.1332), weight: 3}, // Centro
+      {location: new google.maps.LatLng(19.4169, -99.1620), weight: 3}, // Roma
+      {location: new google.maps.LatLng(19.3910, -99.1629), weight: 1}, // Del Valle
+      {location: new google.maps.LatLng(19.4040, -99.1476), weight: 1}  // Narvarte
+    ];
+
+    function initMap() {
+      const centro = new google.maps.LatLng(19.4169, -99.1476);
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: centro,
+        mapTypeId: "roadmap"
+      });
+
+      const heatmap = new google.maps.visualization.HeatmapLayer({
+        data: entregas,
+        radius: 30
+      });
+
+      heatmap.setMap(map);
+    }
+
+    window.onload = initMap;
+  </script>
+</body>
+</html>
