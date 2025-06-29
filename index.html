@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapa de Calor de Entregas - EWECAM</title>
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwtBw_8xT_SelruOj_ba5hGpYtvMH8MYA&libraries=visualization"></script>
+    <style>
+      html, body, #map {{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }}
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      const entregas = [
+        {{location: new google.maps.LatLng(19.4326, -99.1332), weight: 3}}, // Centro
+        {{location: new google.maps.LatLng(19.4169, -99.1620), weight: 3}}, // Roma
+        {{location: new google.maps.LatLng(19.3910, -99.1629), weight: 1}}, // Del Valle
+        {{location: new google.maps.LatLng(19.4040, -99.1476), weight: 1}}  // Narvarte
+      ];
+
+      function initMap() {{
+        const centro = new google.maps.LatLng(19.4169, -99.1476);
+        const map = new google.maps.Map(document.getElementById("map"), {{
+          zoom: 12,
+          center: centro,
+          mapTypeId: "roadmap"
+        }});
+
+        const heatmap = new google.maps.visualization.HeatmapLayer({{
+          data: entregas,
+          radius: 30
+        }});
+
+        heatmap.setMap(map);
+      }}
+
+      window.onload = initMap;
+    </script>
+  </body>
+</html>
